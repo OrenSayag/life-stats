@@ -1,0 +1,4 @@
+### SocialProviderLoginType
+
+`'google'`
+
