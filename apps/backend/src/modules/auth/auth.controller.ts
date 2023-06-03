@@ -24,12 +24,6 @@ export class AuthController {
     this.pwaUrl = configService.getOrThrow('PWA_URL');
   }
 
-  @Get('google')
-  @UseGuards(GoogleOauthGuard)
-  async googleLogin() {
-    throw new NotImplementedException();
-  }
-
   @Get('google/callback')
   @UseGuards(GoogleOauthGuard)
   async googleLoginCallback(

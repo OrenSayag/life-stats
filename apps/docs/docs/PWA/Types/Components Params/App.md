@@ -1,3 +1,30 @@
+### SelectParams
+
+```ts
+export interface SelectParams {
+	selectedOption: { value: any; label: string } | { value: any; label: string }[];
+	label: string;
+	onChange: (event: SelectChangeEvent) => void;
+	options: { value: any; label: string }[];
+	labelId: string;
+	className?: string;
+	multiple?: boolean;
+	native?: boolean;
+}
+```
+
+### DateRangeSelectorParams
+
+```ts
+export interface DateRangeSelectorParams {
+	selectedDateRangeOption: { value: DateRangeSelection; label: string };
+	dateRangeOptions: { value: DateRangeSelection; label: string }[];
+	setSelectedDateRangeOption: (option: { value: DateRangeSelection; label: string }) => void;
+	selectInputLabel: string;
+	selectInputLabelId: string;
+}
+```
+
 ### LayoutParams
 
 ```ts
@@ -83,5 +110,40 @@ export interface SubmitButtonParams {
 	className?: string;
 	dimensions?: Dimensions;
 	fill?: string;
+}
+```
+
+### InputLabelType
+
+```ts
+export enum InputLabelType {
+	SELECT = 'select',
+	TEXT = 'text',
+	BOOLEAN = 'boolean',
+	NUMBER = 'number',
+}
+```
+
+### InputLabelParams
+
+```ts
+export type InputLabelParams = {
+	onInputChange: (value: any) => void;
+	value: number | boolean | string | { label: string; value: string }[];
+} & (
+	| { type: InputLabelType.TEXT; value: string }
+	| { type: InputLabelType.NUMBER; value: number }
+	| { type: InputLabelType.BOOLEAN; value: boolean }
+	| { type: InputLabelType.SELECT; value: { label: string; value: string }[] }
+);
+```
+
+### ChartParams
+
+```ts
+export interface ChartParams {
+	data: { key: string; value: number }[];
+	renderLabel?: (item: { key: string; value: number }) => string;
+	className?: string;
 }
 ```

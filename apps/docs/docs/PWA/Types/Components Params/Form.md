@@ -24,11 +24,21 @@ export interface BooleanFormItemControlParams extends FormItemControlParams {
 }
 ```
 
+### FormModificationModeOptions
+
+```ts
+export interface FormModificationModeOptions {
+	formDefinitionId: string;
+	k;
+}
+```
+
 ### FormParams
 
 ```ts
 export interface FormParams {
 	form: FormLog;
+	modificationMode?: FormModificationModeOptions; // when provided, the component displays input boxes which provide the ability to modify the form
 }
 ```
 

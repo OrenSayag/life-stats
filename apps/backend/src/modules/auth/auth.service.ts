@@ -6,12 +6,11 @@ import { Form } from '../../mongoose-schemas/form.mongoose-schema';
 import { FormItem } from '../../mongoose-schemas/form-item.mongoose-schema';
 import { MoneyTransactionCategory } from '../../mongoose-schemas/money-transaction-category.mongoose-schema';
 import { UserSettings } from '../../mongoose-schemas/user-settings.mongoose-schema';
-import { UserAuthenticData } from '../../types/user.type';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { UtilitiesService } from '../utilities/utilities.service';
 
-const TOKEN_MAX_LIFE = '8h';
+const TOKEN_MAX_LIFE = '24h';
 
 @Injectable()
 export class AuthService {
@@ -26,25 +25,20 @@ export class AuthService {
 
   public async signIn(req: Request): Promise<string> {
     const user = req.user as any;
-    let userDocument = await this.getUser(user.providerId);
+    const userDocument = await this.getUser(user.providerId);
     if (!userDocument) {
-      userDocument = await this.createUser(user);
+      await this.createUser(user);
     }
 
-    const userData: UserAuthenticData = {
-      forms: userDocument.forms,
-      moneyTransactionCategories: userDocument.moneyTransactionCategories,
-      profilePicUrl: userDocument.profilePicUrl,
-      settings: userDocument.settings,
-      name: userDocument.name,
-      providerId: userDocument.providerId,
-      defaultForm: userDocument.defaultForm.toString(),
-    };
-
-    const token = this.jwtService.sign(userData, {
-      secret: this.tokenSecret,
-      expiresIn: TOKEN_MAX_LIFE,
-    });
+    const token = this.jwtService.sign(
+      {
+        providerId: userDocument.providerId,
+      },
+      {
+        secret: this.tokenSecret,
+        expiresIn: TOKEN_MAX_LIFE,
+      },
+    );
 
     return token;
   }

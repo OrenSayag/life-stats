@@ -53,6 +53,7 @@ export class FormDefinitionItemDto {
 	numericTarget?: FormItemNumericTargetDto;
 	booleanTarget?: boolean;
 	objectId: string;
+	delete?: boolean;
 }
 ```
 
@@ -102,5 +103,6 @@ export class CreateFormDefinitionDto {
 	name: string;
 	items: CreateFormItemDefinitionDto[];
 	isActive: boolean = true;
+	objectId: string;
 }
 ```

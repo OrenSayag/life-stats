@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Types } from 'mongoose';
+import { Schema, Types } from 'mongoose';
+import ObjectID from 'bson-objectid';
 
 @Injectable()
 export class UtilitiesService {
@@ -41,9 +42,9 @@ export class UtilitiesService {
     dateStart: string,
     dateEnd: string,
   ) {
-    const dateTimestamp = new Date(date).getTime();
-    const startTimestamp = new Date(dateStart).getTime();
-    const endTimestamp = new Date(dateEnd).getTime();
+    const dateTimestamp = new Date(date);
+    const startTimestamp = new Date(dateStart);
+    const endTimestamp = new Date(dateEnd);
     return dateTimestamp >= startTimestamp && dateTimestamp <= endTimestamp;
   }
 

@@ -33,13 +33,15 @@ export class FormService {
     );
     const groupedByType = {};
     for (const id of formTypes) {
-      const matchingForm = formsInThisDate.find(
-        (f) => f.objectId.toString() === id,
-      );
-      if (matchingForm) {
-        groupedByType[id] = matchingForm;
-        continue;
-      }
+      // FOLLOWING CODE SEEM BUGGY AND REDUNDANT. TODO INVESTIGATE AND REMOVE
+      // const matchingForm = formsInThisDate.find(
+      //   (f) => f.objectId.toString() === id,
+      // );
+      // if (matchingForm) {
+      //   groupedByType[id] = matchingForm;
+      //   continue;
+      // }
+
       // TODO REMOVE COMMENTED OUT CODE
       // const formDefinition = user.forms.find(
       //   (f) => f.objectId.toString() === id,
@@ -54,7 +56,7 @@ export class FormService {
 
   public async getLogByDate(params: GetFormLogByDateParams): Promise<FormLog> {
     const user = await this.userService.findByCookie();
-    const { formHistory, forms } = user;
+    const { forms, formHistory } = user;
     const { date, definitionId } = params;
     const formDefinition = forms.find(
       (f) => f.objectId.toString() === definitionId,
@@ -68,6 +70,8 @@ export class FormService {
     if (!formLog) {
       formLog = new FormLog();
       populateNewFormLog(formDefinition, formLog, date);
+    } else {
+      getFormDefinitionUpdatedValues(formLog);
     }
 
     return formLog;
@@ -97,6 +101,46 @@ export class FormService {
       for (const item of log.items) {
         item.value = item.defaultValue;
       }
+    }
+
+    function getFormDefinitionUpdatedValues(log: FormLog) {
+      const definition = user.forms.find(
+        (d) => d.objectId.toString() === log.definitionId.toString(),
+      );
+      console.log("debug form service: definition's name");
+      console.log(definition);
+      log.name = definition.name;
+      const { items } = definition;
+      const itemsThatAreNotInLog = items.filter(
+        (itemInDefinition) =>
+          !log.items.some(
+            (logItem) =>
+              logItem.objectId.toString() ===
+              itemInDefinition.objectId.toString(),
+          ),
+      );
+      for (const item of itemsThatAreNotInLog) {
+        log.items.push(item);
+      }
+      log.items.forEach((i) => {
+        const itemDefinition = items.find(
+          (item) => item.objectId.toString() === i.objectId.toString(),
+        );
+        if (!itemDefinition) {
+          definition.items = definition.items.filter(
+            (item) => item.objectId.toString() !== i.objectId.toString(),
+          );
+          log.items = log.items.filter(
+            (logItem) => logItem.objectId.toString() !== i.objectId.toString(),
+          );
+          return;
+        }
+        i.label = itemDefinition.label;
+        i.isDaily = itemDefinition.isDaily;
+        i.defaultValue = itemDefinition.defaultValue;
+        i.numericTarget = itemDefinition.numericTarget;
+        i.booleanTarget = itemDefinition.booleanTarget;
+      });
     }
   }
 
@@ -220,6 +264,12 @@ export class FormService {
         const itemInFormDefinition = formDefinition.items.find(
           (fi) => fi.objectId.toString() === i.objectId,
         );
+        if (i.delete) {
+          formDefinition.items = formDefinition.items.filter(
+            (item) => item.objectId.toString() !== i.objectId,
+          );
+          continue;
+        }
         if (!itemInFormDefinition) {
           const {
             defaultValue,
@@ -248,7 +298,7 @@ export class FormService {
           }
           if (type === 'numeric') {
             if (
-              numericTarget?.amount ||
+              numericTarget?.amount === undefined ||
               numericTarget.isMinimum === undefined
             ) {
               const errorMessage =
@@ -258,6 +308,7 @@ export class FormService {
             newItem.numericTarget = numericTarget as NumericTarget;
           }
           newItem.defaultValue = defaultValue;
+          newItem.value = defaultValue;
           newItem.objectId = new Types.ObjectId(objectId);
           newItem.label = label;
           newItem.isDaily = isDaily;
@@ -269,9 +320,8 @@ export class FormService {
         const { type } = itemInFormDefinition;
 
         validateItem();
-        itemInFormDefinition.isDaily = isDaily
-          ? isDaily
-          : itemInFormDefinition.isDaily;
+        itemInFormDefinition.isDaily =
+          isDaily !== undefined ? isDaily : itemInFormDefinition.isDaily;
         if (itemInFormDefinition.type === 'numeric') {
           itemInFormDefinition.numericTarget = {
             amount:
@@ -289,9 +339,10 @@ export class FormService {
             ? booleanTarget
             : itemInFormDefinition.booleanTarget;
         }
-        itemInFormDefinition.defaultValue = defaultValue
-          ? defaultValue
-          : itemInFormDefinition.defaultValue;
+        itemInFormDefinition.defaultValue =
+          defaultValue !== undefined
+            ? defaultValue
+            : itemInFormDefinition.defaultValue;
         itemInFormDefinition.label = label ? label : itemInFormDefinition.label;
 
         function validateItem() {
@@ -364,8 +415,9 @@ export class FormService {
     params: CreateFormDefinitionDto,
   ): Promise<string> {
     const user = await this.userService.findByCookie();
-    const { items, isActive, name } = params;
+    const { items, isActive, name, objectId } = params;
     const form = new Form();
+    form.objectId = new Types.ObjectId(objectId);
     form.name = name;
     form.isActive = isActive;
     validateItems();

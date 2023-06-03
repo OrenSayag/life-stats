@@ -31,20 +31,38 @@ export class AnalyticsService {
       formHistory,
       { minDate, maxDate },
     );
+    const { items: formDefinitionItems } = formDefinition;
     for (const log of logs) {
-      const { items, definitionId } = log;
-      if (!res.items[definitionId.toString()]) {
-        res.items[definitionId.toString()] = [];
-      }
+      const { items } = log;
       for (const i of items) {
+        const { objectId } = i;
+        if (
+          !historyItemIsInCurrentFormDefinitionItems(
+            objectId.toString(),
+            formDefinitionItems.map((fdi) => fdi.objectId.toString()),
+          )
+        ) {
+          continue;
+        }
+        if (!res.items[i.objectId.toString()]) {
+          res.items[i.objectId.toString()] = [];
+        }
         const { value } = i;
         const analyticsFormItem: AnalyticsFormItem = {
           date: log.date,
           value,
         };
-        res.items[definitionId.toString()].push(analyticsFormItem);
+        res.items[i.objectId.toString()].push(analyticsFormItem);
       }
     }
+
     return res;
+
+    function historyItemIsInCurrentFormDefinitionItems(
+      historyItemId: string,
+      formDefinitionItems: string[],
+    ) {
+      return formDefinitionItems.includes(historyItemId);
+    }
   }
 }

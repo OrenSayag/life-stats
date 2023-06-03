@@ -1,5 +1,11 @@
 ## Atoms
 
+### Select
+
+#### Params
+
+`SelectParams`
+
 ### Burger
 
 ### LoginButton
@@ -86,7 +92,7 @@ Used in the form card.
 
 #### Params
 
-`onClick: ()=>void`
+`onClick: ()=>void, targetMode: boolean`
 
 ### NumericFormItemControl
 
@@ -111,6 +117,20 @@ Contains a toggler to toggle value of the form item.
 `IconButtonParams`
 
 ## Molecules
+
+### DateRangeSelector
+
+#### Params
+
+`DateRangeSelectorParams`
+
+### AnalyticsItemSwitch
+
+Used in Analytics page. Switches between form item analytics display.
+
+#### Params
+
+`{ itemLabel: string, onChange: (dir: "next" | "previous") => void }`
 
 ### PageTitle
 
@@ -154,7 +174,17 @@ Target mode displays the target value instead of control.
 
 `AddMoneyTransactionFormParams`
 
+### InputLabel
+
+Display a label with a value. Clicking on it, turns the label to an input.
+
+#### Params
+
+`InputLabelParams`
+
 ## Organisms
+
+### AnalyticsItem
 
 ### HeaderBar
 
@@ -182,6 +212,18 @@ Displays the form log.
 
 `MoneyTransactionDayLogParams`
 
+### LineChart
+
+#### Params
+
+`ChartParams`
+
+### PieChart
+
+#### Params
+
+`ChartParams`
+
 ## Templates
 
 ### Layout
@@ -203,4 +245,4 @@ Displays the forms and money transactions for the date.
 
 #### Params
 
-`UserAuthenticData`
+`UserData`

@@ -10,16 +10,6 @@ export interface FormDefinition {
 }
 ```
 
-### UserAuthenticData
-
-```ts
-export interface UserAuthenticData {
-	name: string;
-	profilePicUrl: string;
-	providerId: string;
-}
-```
-
 ### ReportsUserSettingsDto
 
 ```ts

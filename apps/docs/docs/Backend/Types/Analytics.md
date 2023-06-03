@@ -4,7 +4,6 @@
 
 ```ts
 export class GetAnalyticsForFormRequestBody {
-	items: ObjectId[]; // referring to the FormDefinitionItems in the FormDefinition. Empty
 	minDate: string;
 	maxDate: string;
 }
@@ -19,21 +18,21 @@ export interface AnalyticsFormItem {
 }
 ```
 
-### `FormAnalytics`
-
-```ts
-export interface GetAnalyticsForFormResponseBody {
-	items: any; // object containing form item names as keys, each includes an array of AnalyticsFormItem
-	form: Form; // the form definition
-	minDate: string;
-	maxDate: string;
-}
-```
-
 ### `GetAnalyticsForFormParams`
 
 ```ts
 export interface GetAnalyticsForFormParams extends GetAnalyticsForFormRequestBody {
 	formDefinitionId: string;
+}
+```
+
+### `FormAnalytics`
+
+```ts
+export interface FormAnalytics {
+	items: any; // object containing form item names as keys, each includes an array of AnalyticsFormItem
+	form: Form; // the form definition
+	minDate: string;
+	maxDate: string;
 }
 ```

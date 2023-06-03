@@ -64,10 +64,6 @@ export class MoneyTransactionService {
     transaction.isRevenue = isRevenue;
     transaction.objectId = new Types.ObjectId(objectId);
     transaction.timestamp = timestamp;
-    console.log(
-      'Debug money-transaction service: received categoryId from createMoneyTransaction',
-    );
-    console.log({ categoryId });
     if (categoryId) {
       this.validateMoneyTransactionCategoryExists(
         categoryId,

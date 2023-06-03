@@ -24,14 +24,15 @@ export interface AnalyticsFormItem {
   date: string;
   value: number | boolean;
 }
+
+export interface GetAnalyticsForFormParams
+  extends GetAnalyticsForFormRequestBody {
+  formDefinitionId: string;
+}
+
 export interface FormAnalytics {
   items: any; // object containing form item names as keys, each includes an array of AnalyticsFormItem
   form: Form; // the form definition
   minDate: string;
   maxDate: string;
-}
-
-export interface GetAnalyticsForFormParams
-  extends GetAnalyticsForFormRequestBody {
-  formDefinitionId: string;
 }

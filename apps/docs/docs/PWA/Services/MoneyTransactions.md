@@ -4,7 +4,7 @@
 
 #### Params
 
-`{categoryId: string, userAuthenticData: UserAuthenticData}`
+`{categoryId: string, userData: UserData}`
 
 #### Return
 
@@ -19,3 +19,9 @@ Returns mutation object from `useMutation` hook
 #### Params
 
 `date: string`
+
+### static useMoneyTransactions
+
+#### Return
+
+`UseMoneyTransactionsReturn`

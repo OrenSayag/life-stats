@@ -106,12 +106,32 @@ export class FinanceUserSettings {
 }
 ```
 
-### UserAuthenticData
+### MoneyTransaction
 
 ```ts
-export interface UserAuthenticData {
-	name: string;
-	profilePicUrl: string;
-	providerId: string;
+export interface MoneyTransaction {
+	timestamp: string;
+	category?: string; // id, find the category from the UserData param (retrieved in getserversideprops of the page)
+	isRevenue: boolean;
+	label: string;
+	amount: number;
+	objectId: string;
+}
+```
+
+### MoneyTransactionsByCategory
+
+```ts
+export interface MoneyTransactionsByCategory {
+	[categoryId: string]: MoneyTransaction[];
+	uncategorized: MoneyTransaction[];
+}
+```
+
+### MoneyTransactionsByDate
+
+```ts
+export interface MoneyTransactionsByDate {
+	[date: string]: MoneyTransaction[];
 }
 ```

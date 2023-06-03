@@ -95,9 +95,12 @@ export class UsersService {
         objectId: t.objectId.toString(),
       })),
       settings: {
-        ...settings,
-        reports: { ...settings.reports, forms: [] },
-        finance: settings.finance,
+        reports: {
+          interval: settings.reports.interval,
+          mailTo: settings.reports.mailTo,
+          forms: [],
+        },
+        finance: { currency: settings.finance.currency },
       },
       formDefinitions: forms.map((f) => ({
         name: f.name,

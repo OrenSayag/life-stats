@@ -13,6 +13,9 @@ import {
   Validate,
   ValidateIf,
   ValidateNested,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+  ValidationArguments,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { FormLog } from '../mongoose-schemas/form-log.mongoose-schema';
@@ -56,10 +59,38 @@ export class FormItemNumericTargetDto {
   isMinimum?: boolean;
 }
 
+@ValidatorConstraint({ name: 'defaultValue', async: false })
+export class FormDefinitionItemDefaultValueValidator
+  implements ValidatorConstraintInterface
+{
+  validate(defaultValue: any, args: ValidationArguments) {
+    const object = args.object as FormDefinitionItemDto;
+    if (object.type === 'numeric') {
+      console.log('debug valdation formcontroller');
+      console.log(object);
+      return typeof defaultValue === 'number';
+    } else if (object.type === 'boolean') {
+      return typeof defaultValue === 'boolean';
+    } else {
+      return true;
+    }
+  }
+
+  defaultMessage(args: ValidationArguments) {
+    const object = args.object as FormDefinitionItemDto;
+    if (object.type === 'numeric') {
+      return 'defaultValue must be a number if type is numeric';
+    } else if (object.type === 'boolean') {
+      return 'defaultValue must be a boolean if type is boolean';
+    } else {
+      return '';
+    }
+  }
+}
+
 export class FormDefinitionItemDto {
-  @IsNumber()
-  @IsBoolean()
   @IsOptional()
+  @Validate(FormDefinitionItemDefaultValueValidator)
   defaultValue?: boolean | number;
   @IsString()
   @IsOptional()
@@ -84,6 +115,10 @@ export class FormDefinitionItemDto {
 
   @IsString()
   objectId: string;
+
+  @IsBoolean()
+  @IsOptional()
+  delete?: boolean;
 }
 
 export class PatchFormDefinitionRequestBodyDto {
@@ -148,4 +183,7 @@ export class CreateFormDefinitionDto {
   @IsBoolean()
   @IsOptional()
   isActive = true;
+
+  @IsString()
+  objectId: string;
 }

@@ -69,3 +69,15 @@ Increment or decrements a date string - returns a date string.
 #### Return
 
 `string`
+
+### static useClickOutside
+
+#### Params
+
+`ref: RefObject<HTMLElement>, callback: () => void`
+
+### static useDateRangeSelection
+
+#### Return
+
+`UseDateRangeSelectionReturn`
