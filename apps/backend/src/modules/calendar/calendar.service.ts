@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UsersService } from '../user/users.service';
-import { CalendarDate } from '../../types/calendar.type';
 import { UtilitiesService } from '../utilities/utilities.service';
-import { DateRange } from 'shared-types/shared.type';
+import { CalendarDate, DateRange } from 'shared-types/shared.type';
 
 @Injectable()
 export class CalendarService {

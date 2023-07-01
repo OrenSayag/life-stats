@@ -135,3 +135,12 @@ export interface MoneyTransactionsByDate {
 	[date: string]: MoneyTransaction[];
 }
 ```
+
+### CalendarDate
+
+```ts
+export interface CalendarDate {
+	isPerfectDay: boolean;
+	date: string;
+}
+```

@@ -3,12 +3,12 @@ import { AppModule } from './modules/app/app.module';
 import cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
 
-const GLOBAL_ENDPOINT_PREFIX = 'api';
+// const GLOBAL_ENDPOINT_PREFIX = 'api';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const port = process.env.PORT || 3002;
   app.use(cookieParser());
-  app.setGlobalPrefix(GLOBAL_ENDPOINT_PREFIX);
+  // app.setGlobalPrefix(GLOBAL_ENDPOINT_PREFIX);
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({
     origin: process.env.CLIENT_ORIGIN,

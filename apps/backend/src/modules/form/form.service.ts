@@ -166,7 +166,10 @@ export class FormService {
         }
         if (type === 'numeric') {
           const { amount, isMinimum } = numericTarget;
-          if ((isMinimum && value < amount) || (!isMinimum && value > amount)) {
+          if (
+            (isMinimum && (value as number) < amount) ||
+            (!isMinimum && (value as number) > amount)
+          ) {
             dayIsPerfect = false;
           }
         }

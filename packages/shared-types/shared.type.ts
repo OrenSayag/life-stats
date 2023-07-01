@@ -85,3 +85,8 @@ export interface MoneyTransactionsByCategory {
   [categoryId: string]: MoneyTransaction[];
   uncategorized: MoneyTransaction[];
 }
+
+export interface CalendarDate {
+  isPerfectDay: boolean;
+  date: string;
+}

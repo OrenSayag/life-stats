@@ -9,6 +9,7 @@ import { UserSettings } from '../../mongoose-schemas/user-settings.mongoose-sche
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { UtilitiesService } from '../utilities/utilities.service';
+import { Types } from 'mongoose';
 
 const TOKEN_MAX_LIFE = '24h';
 
@@ -24,7 +25,7 @@ export class AuthService {
   }
 
   public async signIn(req: Request): Promise<string> {
-    const user = req.user as any;
+    const user = (req as any).user as any;
     const userDocument = await this.getUser(user.providerId);
     if (!userDocument) {
       await this.createUser(user);
@@ -86,6 +87,7 @@ export class AuthService {
       form.name = 'Main';
       form.items = createFormItems();
       form.isActive = true;
+      form.objectId = new Types.ObjectId();
       return form;
       function createFormItems(): FormItem[] {
         const NUMBER_OF_ITEMS = 3;
