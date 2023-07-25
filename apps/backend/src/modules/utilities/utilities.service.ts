@@ -1,11 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { Schema, Types } from 'mongoose';
-import ObjectID from 'bson-objectid';
+import { Types } from 'mongoose';
+import moment from 'moment';
 
 @Injectable()
 export class UtilitiesService {
   public static objectId() {
     return new Types.ObjectId();
+  }
+
+  public static getDatesBetween(mindate, maxdate) {
+    const format = 'YYYY-MM-DD';
+    const datesBetween = [];
+    let currentDate = moment(mindate);
+
+    while (currentDate.isSameOrBefore(maxdate, 'day')) {
+      datesBetween.push(currentDate.format(format));
+      currentDate.add(1, 'day');
+    }
+
+    return datesBetween;
   }
 
   public static timestamp() {

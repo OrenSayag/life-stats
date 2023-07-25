@@ -1,5 +1,17 @@
 ## Atoms
 
+### TextInput
+
+#### Params
+
+`{ onChange: CHangeEventHandler<HTMLInputElement>, value: string, label: string }`
+
+### PriceInput
+
+#### Params
+
+`{currency: number, value: number, onChange: (number)=>void, label?: string}`
+
 ### Select
 
 #### Params
@@ -184,6 +196,12 @@ Display a label with a value. Clicking on it, turns the label to an input.
 
 ## Organisms
 
+### Report
+
+#### Params
+
+`Report`
+
 ### AnalyticsItem
 
 ### HeaderBar
@@ -223,6 +241,12 @@ Displays the form log.
 #### Params
 
 `ChartParams`
+
+### Calendar
+
+#### Params
+
+`CalendarParams`
 
 ## Templates
 

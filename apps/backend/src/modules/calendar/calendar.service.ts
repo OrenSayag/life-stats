@@ -29,6 +29,14 @@ export class CalendarService {
     for (const date of Object.keys(dates)) {
       calendarDates.push(dates[date]);
     }
-    return calendarDates;
+    const datesBetween = UtilitiesService.getDatesBetween(minDate, maxDate);
+    for (const date of datesBetween) {
+      if (!dates[date]) {
+        calendarDates.push({ date, isPerfectDay: false });
+      }
+    }
+    return calendarDates.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    );
   }
 }

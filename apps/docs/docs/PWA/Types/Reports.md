@@ -1,17 +1,27 @@
+### UseReportReturn
+
+```ts
+export interface UseReportReturn {
+	monthLabel: string;
+	onSwitchMonth: (increment: boolean) => void;
+	query: UseQueryResult<Report>;
+}
+```
+
 ### GetReportRequestBody
 
 ```ts
 export interface GetReportRequestBody {
 	minDate: string;
 	maxDate: string;
-	formId: string; // objectId
+	formId: string;
 }
 ```
 
 ### ReportFormStateItem
 
 ```ts
-export class ReportFormItem {
+export interface ReportFormItem {
 	value: {
 		success: number;
 		total: number;
@@ -24,7 +34,7 @@ export class ReportFormItem {
 ### Report
 
 ```ts
-export class Report {
+export interface Report {
 	creationTimestamp: string;
 	formName: string;
 	formItems: {

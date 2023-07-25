@@ -8,3 +8,9 @@ export interface UseCalendarReturn {
 	totalDaysInMonth: number;
 }
 ```
+
+### CalendarWeekData
+
+```ts
+export type CalendarWeekData = (CalendarDate | undefined)[];
+```

@@ -51,6 +51,9 @@ export class ReportsService {
           const relevantItem = log.items.find(
             (i) => i.objectId.toString() === objectId.toString(),
           );
+          if (!relevantItem) {
+            continue;
+          }
           const { value } = relevantItem;
           if (value === true) {
             success++;
