@@ -45,7 +45,7 @@ const FormItemContainer: React.FC<FormItemContainerParams> = ({
       onClick={onClick}
     >
       <label>{label}</label>
-      <div>
+      <div onClick={(e) => e.stopPropagation()}>
         {type === "boolean" && (
           <BooleanFormItemControl
             defaultValue={defaultValue as boolean}

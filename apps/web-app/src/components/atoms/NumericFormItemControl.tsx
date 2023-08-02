@@ -12,14 +12,8 @@ const NumericFormItemControl: React.FC<NumericFormItemControlParams> = ({
   objectId,
   numericTarget,
 }) => {
-  const add = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
-    onChange({ value: value + 1, objectId });
-  };
-  const subtract = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
-    onChange({ value: value - 1, objectId });
-  };
+  const add = () => onChange({ value: value + 1, objectId });
+  const subtract = () => onChange({ value: value - 1, objectId });
   const setInput = (value: number) => onChange({ value, objectId });
   const determineColor = () => {
     if (isTargetDisplay) {

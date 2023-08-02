@@ -9,7 +9,10 @@ const BooleanFormItemControl: React.FC<BooleanFormItemControlParams> = ({
   objectId,
   booleanTarget,
 }) => {
-  const onSwitch = () => onChange({ value: !value, objectId });
+  const onSwitch = (e: React.ChangeEvent<HTMLElement>) => {
+    e.stopPropagation();
+    onChange({ value: !value, objectId });
+  };
   const determineColor = () => {
     if (isTargetDisplay) {
       return "error";
