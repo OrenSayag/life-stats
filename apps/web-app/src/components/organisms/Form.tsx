@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../../components/atoms/Card";
 import Divider from "../../components/atoms/Divider";
 import { FormParams } from "../../types/component-params/form.type";
 import FormItemContainer from "../../components/molecules/FormItemContainer";
 import {
-  FormItem,
   PatchFormDefinitionRequestBody,
   PatchFormStateItem,
   PatchFormStateRequestBody,
@@ -18,12 +17,64 @@ import strings from "../../assets/strings";
 import UtilitiesService from "../../services/utilities.service";
 import AddButton from "../atoms/AddButton";
 import TrashButton from "../atoms/TrashButton";
+import { FormItem } from "shared-types/shared.type";
+import moment from "moment";
 
 const PADDING = "xl:p-6 p-4";
 const PADDING_X = "xl:px-24";
+const CURRENT_SELECTED_TASK_KEY = "currentSelectedTask";
+
+const useSelectedTask = (
+  formDefinitionId: string,
+  date: string
+): {
+  currentSelectedTask: string;
+  toggleCurrentSelectedTask: (objectId: string) => void;
+} => {
+  const retrieveCurrentSelectedTask = () => {
+    const currentSelectedTask = localStorage.getItem(CURRENT_SELECTED_TASK_KEY);
+    if (!currentSelectedTask) {
+      return null;
+    }
+    const [form, formDate, itemId] = currentSelectedTask.split("_");
+    if (form === formDefinitionId && formDate === date) {
+      return itemId;
+    }
+  };
+  const removeCurrentSelectedTask = () => {
+    localStorage.removeItem(CURRENT_SELECTED_TASK_KEY);
+  };
+  const setCurrentSelectedTaskInLS = (itemId: string) => {
+    const createValue = () =>
+      `${formDefinitionId}_${moment(date).format("YYYY-MM-DD")}_${itemId}`;
+    localStorage.setItem(CURRENT_SELECTED_TASK_KEY, createValue());
+  };
+
+  const [currentSelectedTask, setCurrentSelectedTask] = useState<string>(null);
+
+  useEffect(() => {
+    setCurrentSelectedTask(retrieveCurrentSelectedTask());
+  }, [date, formDefinitionId]);
+  const toggleCurrentSelectedTask = (itemId: string) => {
+    if (currentSelectedTask === itemId) {
+      removeCurrentSelectedTask();
+      setCurrentSelectedTask(null);
+    } else {
+      setCurrentSelectedTaskInLS(itemId);
+      setCurrentSelectedTask(itemId);
+    }
+  };
+
+  return { currentSelectedTask, toggleCurrentSelectedTask };
+};
 const Form: React.FC<FormParams> = ({ formLog, modificationMode }) => {
   const { name, definitionId, items, date, isActive, objectId, isPerfect } =
     formLog || {};
+
+  const { toggleCurrentSelectedTask, currentSelectedTask } = useSelectedTask(
+    definitionId,
+    date
+  );
 
   const toggleTargetMode = () => setTargetMode(!targetMode);
   const { mutate } = FormService.useUpdateFormState(definitionId, date);
@@ -65,7 +116,6 @@ const Form: React.FC<FormParams> = ({ formLog, modificationMode }) => {
         items: currentItems,
       };
       const formDefinitionId = modificationMode?.formDefinition.objectId;
-      console.log("Debug Form component: about to mutate form item item");
       updateFormDefinitionMutation.mutate({ requestBody, formDefinitionId });
     },
 
@@ -359,7 +409,13 @@ const Form: React.FC<FormParams> = ({ formLog, modificationMode }) => {
               items.map((i) => (
                 <FormItemContainer
                   key={i.objectId}
+                  isCurrentSelectedTask={
+                    i.objectId === currentSelectedTask && !modificationMode
+                  }
                   formItem={i}
+                  onClick={() => {
+                    toggleCurrentSelectedTask(i.objectId);
+                  }}
                   targetMode={targetMode}
                   onChange={onItemValueModification}
                 />
@@ -369,7 +425,7 @@ const Form: React.FC<FormParams> = ({ formLog, modificationMode }) => {
                 <FormItemModificationWorkspace key={i.objectId} formItem={i} />
               ))}
             {modificationMode?.formDefinition && addItemMode === null && (
-              <AddButton onClick={toggleAddItemMode} fill={"white"} />
+              <AddButton onClick={() => toggleAddItemMode()} fill={"white"} />
             )}
             {addItemMode === "ask-for-type" && <AddFormItemAskForTypeDialog />}
             {/*{addItemMode !== "ask-for-type" && addItemMode !== null && (*/}

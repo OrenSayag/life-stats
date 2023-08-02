@@ -83,7 +83,6 @@ const InputLabel: React.FC<InputLabelParams> = ({
           <Switch
             checked={value}
             onChange={(e) => {
-              console.log(e.target.checked);
               onInputChange(e.target.checked);
             }}
           />

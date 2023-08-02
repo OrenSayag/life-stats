@@ -29,7 +29,6 @@ export const useReport = (params: { formId: string }): UseReportReturn => {
       requestBody,
       { withCredentials: true }
     );
-    console.log(res.data);
     return res.data.data as Report;
   };
 

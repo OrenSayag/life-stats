@@ -83,11 +83,7 @@ class MoneyTransactionService {
   public static useDeleteMoneyTransaction = (date: string) => {
     const queryClient = useQueryClient();
 
-    console.log({ date });
-
     const queryKey = ["day-view-data", date];
-
-    console.log({ queryKey });
 
     return useMutation({
       mutationFn: (params: { transactionId: string }) => {
@@ -100,9 +96,6 @@ class MoneyTransactionService {
         );
       },
       onMutate: async (params: { transactionId: string }) => {
-        console.log(
-          "DEBUG money-trnsaction-service: money`transactions after mutation of delete money transaction"
-        );
         const { transactionId } = params;
 
         await queryClient.cancelQueries({ queryKey: queryKey });
@@ -116,7 +109,6 @@ class MoneyTransactionService {
           dayViewData.moneyTransactions = moneyTransactions.filter(
             (t) => t.objectId !== transactionId
           );
-          console.log(dayViewData.moneyTransactions);
           queryClient.setQueriesData<DayViewDateData>(
             queryKey,
             () => dayViewData

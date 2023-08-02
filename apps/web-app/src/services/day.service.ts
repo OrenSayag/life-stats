@@ -37,10 +37,7 @@ class DayService {
     moneyTransactions: MoneyTransaction[]
   ): number => {
     const expenses = moneyTransactions.filter((t) => !t.isRevenue);
-    console.log("debug dayService");
-    console.log(expenses);
     const totalExpenses = expenses.reduce((acc, curr) => acc + curr.amount, 0);
-    console.log({ totalExpenses });
     return totalExpenses;
   };
 }

@@ -1,5 +1,21 @@
-import { FormItem } from "pwa/src/types/form.type";
+export interface NumericTarget {
+  amount: number;
+  isMinimum: boolean;
+}
 
+export interface FormItem {
+  isDaily: boolean;
+  label: string;
+  type: "numeric" | "boolean";
+  numericTarget?: NumericTarget;
+  booleanTarget?: boolean;
+  defaultValue: number | boolean;
+  objectId: string;
+  value: number | boolean;
+  // TODO update docs
+
+  delete?: boolean; // used for mutating the form definition
+}
 export interface UserData {
   formDefinitions: Form[];
   moneyTransactionCategories: MoneyTransactionCategory[];
@@ -24,8 +40,8 @@ export interface DateRange {
 export interface FormLog {
   name: string;
   objectId: string;
-  items: FormItem[];
   isActive: boolean;
+  items: FormItem[];
   date: string;
   isPerfect: boolean;
   definitionId: string;

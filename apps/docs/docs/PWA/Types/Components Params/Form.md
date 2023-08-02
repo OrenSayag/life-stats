@@ -49,5 +49,7 @@ export interface FormItemContainerParams {
 	formItem: FormItem;
 	targetMode: boolean;
 	onChange: () => void;
+	isCurrentSelectedTask?: boolean;
+	onClick: () => void;
 }
 ```

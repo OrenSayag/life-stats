@@ -1,58 +1,59 @@
-import { FormItem } from "pwa/src/types/form.type";
+import { FormItem } from "./shared.type";
+
 export interface UserData {
-    formDefinitions: Form[];
-    moneyTransactionCategories: MoneyTransactionCategory[];
-    settings: UserSettings;
-    profilePicUrl: string;
-    name: string;
+  formDefinitions: Form[];
+  moneyTransactionCategories: MoneyTransactionCategory[];
+  settings: UserSettings;
+  profilePicUrl: string;
+  name: string;
 }
 export interface AppAPIResponseBodyBase {
-    success: boolean;
-    message: string;
-    httpStatus: number;
-    timestamp: string;
-    data?: any;
+  success: boolean;
+  message: string;
+  httpStatus: number;
+  timestamp: string;
+  data?: any;
 }
 export interface DateRange {
-    minDate: string;
-    maxDate: string;
+  minDate: string;
+  maxDate: string;
 }
 export interface FormLog {
-    name: string;
-    objectId: string;
-    items: FormItem[];
-    isActive: boolean;
-    date: string;
-    isPerfect: boolean;
-    definitionId: string;
+  name: string;
+  objectId: string;
+  items: FormItem[];
+  isActive: boolean;
+  date: string;
+  isPerfect: boolean;
+  definitionId: string;
 }
 export interface Form {
-    name: string;
-    items: FormItem[];
-    isActive: boolean;
-    objectId: string;
+  name: string;
+  items: FormItem[];
+  isActive: boolean;
+  objectId: string;
 }
 export interface MoneyTransactionCategory {
-    name: string;
-    objectId: string;
+  name: string;
+  objectId: string;
 }
 export interface GetUserDataResponseBody extends AppAPIResponseBodyBase {
-    data: UserData;
+  data: UserData;
 }
 export interface UserSettings {
-    reports: ReportsUserSettings;
-    finance: FinanceUserSettings;
+  reports: ReportsUserSettings;
+  finance: FinanceUserSettings;
 }
 export interface ReportsUserSettings {
-    mailTo: string[];
-    interval: number;
-    forms: string[];
+  mailTo: string[];
+  interval: number;
+  forms: string[];
 }
 export interface FinanceUserSettings {
-    currency: number;
+  currency: number;
 }
 export interface UserAuthenticData {
-    name: string;
-    profilePicUrl: string;
-    providerId: string;
+  name: string;
+  profilePicUrl: string;
+  providerId: string;
 }

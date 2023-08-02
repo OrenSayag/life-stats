@@ -2,13 +2,15 @@ import React from "react";
 import { FormItemContainerParams } from "../../types/component-params/form.type";
 import BooleanFormItemControl from "../../components/atoms/BooleanFormItemControl";
 import NumericFormItemControl from "../../components/atoms/NumericFormItemControl";
-import { NumericTarget } from "../../types/form.type";
 import UtilitiesService from "../../services/utilities.service";
+import { NumericTarget } from "shared-types/shared.type";
 
 const FormItemContainer: React.FC<FormItemContainerParams> = ({
   formItem,
   targetMode,
   onChange,
+  isCurrentSelectedTask,
+  onClick,
 }) => {
   const {
     isDaily,
@@ -20,7 +22,10 @@ const FormItemContainer: React.FC<FormItemContainerParams> = ({
     type,
     objectId,
   } = formItem;
-  const determineDailyMarker = () => {
+  const determineMarker = () => {
+    if (isCurrentSelectedTask) {
+      return "rounded bg-blue-400 bg-opacity-10 outline outline-blue-800";
+    }
     const targetMet =
       type === "boolean"
         ? booleanTarget === value
@@ -35,8 +40,9 @@ const FormItemContainer: React.FC<FormItemContainerParams> = ({
     <div
       className={UtilitiesService.classNames(
         "flex items-center justify-between p-2 transition-all duration-200",
-        determineDailyMarker()
+        determineMarker()
       )}
+      onClick={onClick}
     >
       <label>{label}</label>
       <div>

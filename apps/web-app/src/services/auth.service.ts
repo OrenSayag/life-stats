@@ -8,8 +8,6 @@ class AuthService {
   public getLoginUrl(provider: SocialProviderLoginType) {
     const { API_HOST, GOOGLE_LOGIN_ENDPOINT } = config;
     if (provider === "google") {
-      console.log("Debug auth service:");
-      console.log(`${API_HOST}${GOOGLE_LOGIN_ENDPOINT}`);
       return `${API_HOST}${GOOGLE_LOGIN_ENDPOINT}`;
     }
   }
@@ -25,7 +23,6 @@ class AuthService {
     try {
       userData = await UserService.getUserData(cookie);
     } catch (e) {
-      console.log(e.response.data);
       if (validateNotLoggedIn) {
         return { props: {} };
       }

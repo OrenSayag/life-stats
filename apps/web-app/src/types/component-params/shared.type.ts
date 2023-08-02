@@ -2,7 +2,7 @@ import { MoneyTransaction } from "shared-types/shared.type";
 import { Dimensions } from "../../types/utilities.type";
 
 export interface PreviousNextButtonParams {
-  onClick: () => void;
+  onClick: (e?: React.MouseEvent<HTMLElement>) => void;
 
   // TODO update docs
   dimensions?: Dimensions;

@@ -54,8 +54,6 @@ export interface Form {
 }
 ```
 
--- ALIGNED ---
-
 ### FormLog
 
 ```ts

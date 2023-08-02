@@ -1,6 +1,4 @@
 import {
-  FormItem,
-  NumericTarget,
   PatchFormDefinitionRequestBody,
   PatchFormStateRequestBody,
   UseFormDefinitionsReturn,
@@ -9,7 +7,12 @@ import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import config from "./../config";
 import { DayViewDateData } from "../types/day.type";
-import { Form, FormLog } from "shared-types/shared.type";
+import {
+  Form,
+  FormItem,
+  FormLog,
+  NumericTarget,
+} from "shared-types/shared.type";
 import strings from "../assets/strings";
 import UtilitiesService from "./utilities.service";
 import { CreateFormDefinitionRequestBody } from "../types/component-params/form.type";
@@ -21,7 +24,6 @@ class FormService {
   ) => {
     const queryClient = useQueryClient();
 
-    // const onMutate =
     const queryKey = ["day-view-data", date];
 
     return useMutation({
@@ -50,7 +52,6 @@ class FormService {
             relevantItemInForm.value = value;
           }
           relevantForm.isPerfect = FormService.isFormLogPerfect(relevantForm);
-          console.log(relevantForm.isPerfect);
           queryClient.setQueriesData<DayViewDateData>(
             queryKey,
             () => dayViewData
@@ -59,13 +60,6 @@ class FormService {
         return { dayViewData };
       },
       onError: (err, variables, context) => {
-        console.log("DEBUG FORM SERVICE: onMutate");
-        console.log(
-          JSON.stringify({
-            err,
-            context,
-          })
-        );
         if (context?.dayViewData) {
           queryClient.setQueryData<DayViewDateData>(
             [queryKey],
@@ -237,17 +231,12 @@ class FormService {
             formDefinitions = formDefinitions.filter(
               (f) => f.objectId !== params.formDefinitionId
             );
-            console.log("Debug onMutate of delete form definition");
-            console.log(formDefinitions);
             return formDefinitions;
           }
         );
         return { previousValue };
       },
       onError: (error, variables, context) => {
-        console.log(
-          "Debug onError of delete form definition: request has failed"
-        );
         queryClient.setQueryData<Form[]>(
           queryKey,
           (formDefinitions): Form[] => {
@@ -271,13 +260,6 @@ class FormService {
       deleteFormDefinitionMutation,
     };
   };
-
-  // public static useUpdateFormDefinition() {
-  //   return useMutation({
-  //     mutationFn: (params: { formDefinitionId: string }) =>
-  //       axios.patch(config.API_HOST + "form/" + params.formDefinitionId),
-  //   });
-  // }
 }
 
 export default FormService;

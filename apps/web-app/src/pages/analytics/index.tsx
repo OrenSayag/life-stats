@@ -80,7 +80,6 @@ const Filters: React.FC<{
     setSelectedItems: (newItems: string[]) => void;
   }> = ({ allItems, selectedItems, setSelectedItems }) => {
     const onChange = (e) => {
-      console.log(e.target.value);
       setSelectedItems(e.target.value as unknown as string[]);
     };
     const selectedOptions = useMemo(() => {

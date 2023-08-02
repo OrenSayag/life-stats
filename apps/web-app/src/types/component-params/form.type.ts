@@ -1,9 +1,11 @@
+import { PatchFormStateItem } from "../../types/form.type";
 import {
+  FormLog,
+  Form,
   FormItem,
   NumericTarget,
-  PatchFormStateItem,
-} from "../../types/form.type";
-import { FormLog, Form } from "shared-types/shared.type";
+} from "shared-types/shared.type";
+import React from "react";
 
 export interface FormModificationModeOptions {
   formDefinition: Form;
@@ -18,6 +20,8 @@ export interface FormItemContainerParams {
   targetMode: boolean;
   // TODO update docs
   onChange: (formLogItem: PatchFormStateItem) => void;
+  isCurrentSelectedTask?: boolean;
+  onClick: () => void;
 }
 
 export interface FormItemControlParams {
