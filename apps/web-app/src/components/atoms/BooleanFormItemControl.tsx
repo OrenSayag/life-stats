@@ -22,7 +22,7 @@ const BooleanFormItemControl: React.FC<BooleanFormItemControlParams> = ({
     }
   };
   return (
-    <div>
+    <div onClick={(e) => e.stopPropagation()}>
       <Switch
         color={determineColor()}
         onChange={onSwitch}

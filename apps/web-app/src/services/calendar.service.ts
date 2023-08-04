@@ -79,7 +79,7 @@ class CalendarService {
       firstWeek.push(undefined);
     }
     for (let i = 0; i < 7 - dayOfFirstDate; i++) {
-      firstWeek.push(dates[0]);
+      firstWeek.push(dates[i]);
     }
     const weeks: CalendarWeekData[] = [firstWeek];
     dates.slice(7 - dayOfFirstDate).forEach((date, index) => {
@@ -93,6 +93,8 @@ class CalendarService {
     for (let i = 0; i < 6 - lastWeek.indexOf(lastDate); i++) {
       lastWeek.push(undefined);
     }
+
+    console.log({ weeks });
 
     return weeks;
   };

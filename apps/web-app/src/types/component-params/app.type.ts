@@ -66,6 +66,7 @@ export type InputLabelParams = {
   onInputChange: (value: any) => void;
   className?: string;
   value: number | boolean | string | { label: string; value: string }[];
+  widthByValue?: boolean;
 } & (
   | { type: InputLabelType.TEXT; value: string }
   | { type: InputLabelType.NUMBER; value: number }

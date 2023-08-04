@@ -12,8 +12,14 @@ const NumericFormItemControl: React.FC<NumericFormItemControlParams> = ({
   objectId,
   numericTarget,
 }) => {
-  const add = () => onChange({ value: value + 1, objectId });
-  const subtract = () => onChange({ value: value - 1, objectId });
+  const add = (e) => {
+    e.stopPropagation();
+    onChange({ value: value + 1, objectId });
+  };
+  const subtract = (e) => {
+    e.stopPropagation();
+    onChange({ value: value - 1, objectId });
+  };
   const setInput = (value: number) => onChange({ value, objectId });
   const determineColor = () => {
     if (isTargetDisplay) {
@@ -48,7 +54,7 @@ const NumericFormItemControl: React.FC<NumericFormItemControlParams> = ({
   return (
     <div className={"flex items-center justify-between gap-2"}>
       {!isTargetDisplay && (
-        <AddButton fill={determineChangerFill("add")} onClick={(e) => add(e)} />
+        <AddButton fill={determineChangerFill("add")} onClick={add} />
       )}
       {!isTargetDisplay && (
         <InputLabel
@@ -56,6 +62,7 @@ const NumericFormItemControl: React.FC<NumericFormItemControlParams> = ({
           type={InputLabelType.NUMBER}
           value={value}
           onInputChange={setInput}
+          widthByValue
         />
         // <div
         //   className={[`duration-200 text-3xl`, `text-${determineColor()}`]
@@ -68,7 +75,7 @@ const NumericFormItemControl: React.FC<NumericFormItemControlParams> = ({
       {!isTargetDisplay && (
         <SubtractButton
           fill={determineChangerFill("subtract")}
-          onClick={(e) => subtract(e)}
+          onClick={subtract}
         />
       )}
       {isTargetDisplay && (

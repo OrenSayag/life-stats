@@ -12,7 +12,6 @@ export interface UseFormAnalyticsDataReturn {
     label: string;
   }) => void;
 }
-
 export interface GetAnalyticsForFormRequestBody {
   minDate: string;
   maxDate: string;

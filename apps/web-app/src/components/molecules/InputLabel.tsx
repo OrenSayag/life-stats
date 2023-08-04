@@ -2,7 +2,7 @@ import {
   InputLabelParams,
   InputLabelType,
 } from "../../types/component-params/app.type";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Switch from "@mui/material/Switch";
 import { MenuItem, Select } from "@mui/material";
 import UtilitiesService from "../../services/utilities.service";
@@ -12,11 +12,24 @@ const InputLabel: React.FC<InputLabelParams> = ({
   value,
   type,
   className,
+  widthByValue,
 }) => {
   const [inputMode, setInputMode] = useState<boolean>(
     type === InputLabelType.BOOLEAN
   );
+  const [inputWidth, setInputWidth] = useState<string>();
+
   const [input, setInput] = useState(value);
+
+  useEffect(() => {
+    if (!widthByValue || !inputMode) {
+      return;
+    }
+    const val = input.toString().length + "ch";
+    console.log(val);
+    setInputWidth(val);
+  }, [input, inputMode]);
+
   const ref = useRef();
   const cancelInputMode = () => {
     if (type === InputLabelType.BOOLEAN) {
@@ -37,12 +50,11 @@ const InputLabel: React.FC<InputLabelParams> = ({
   };
 
   UtilitiesService.useClickOutside(ref, cancelInputMode);
-  UtilitiesService.useClickInside(ref, activateInputMode);
 
   return (
     <div
       className={[
-        "rounded-md , p-2",
+        "rounded-md p-2",
         className,
         type !== InputLabelType.BOOLEAN &&
           "p-0 hover:bg-primary hover:bg-opacity-60",
@@ -50,6 +62,10 @@ const InputLabel: React.FC<InputLabelParams> = ({
         .filter(Boolean)
         .join(" ")}
       ref={ref}
+      onClick={(e) => {
+        e.stopPropagation();
+        activateInputMode();
+      }}
     >
       {!inputMode && type === "text" && <label>{value}</label>}
       {!inputMode && type === "number" && <label>{value}</label>}
@@ -89,28 +105,31 @@ const InputLabel: React.FC<InputLabelParams> = ({
         </div>
       )}
       {inputMode && type === "number" && (
-        <input
-          className={[
-            "text-black w-full appearance-none",
-            className?.includes("text-right") && "text-right",
-          ]
-            .filter(Boolean)
-            .join(" ")}
-          type="text"
-          pattern="[0-9]*"
-          value={input as number}
-          onChange={(e) => {
-            if (Number.isNaN(+e.target.value)) {
-              return;
-            }
-            setInput(+e.target.value);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              cancelInputMode();
-            }
-          }}
-        />
+        <>
+          <input
+            style={{ width: widthByValue ? inputWidth : "auto" }}
+            className={[
+              "text-white appearance-none bg-transparent border-none outline-none",
+              className?.includes("text-right") && "text-right",
+            ]
+              .filter(Boolean)
+              .join(" ")}
+            type="text"
+            pattern="[0-9]*"
+            value={input as number}
+            onChange={(e) => {
+              if (Number.isNaN(+e.target.value)) {
+                return;
+              }
+              setInput(+e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                cancelInputMode();
+              }
+            }}
+          />
+        </>
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import { Ref, RefObject, useEffect, useState } from "react";
+import React, { Ref, RefObject, useEffect, useState } from "react";
 import {
   Dimensions,
   UseDateRangeSelectionReturn,
