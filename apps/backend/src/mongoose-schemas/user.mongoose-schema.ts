@@ -6,6 +6,7 @@ import { FormLog } from './form-log.mongoose-schema';
 import { MoneyTransaction } from './money-transaction.mongoose-schema';
 import { MoneyTransactionCategory } from './money-transaction-category.mongoose-schema';
 import { Types } from 'mongoose';
+import { Note } from './note.mongoose-schema';
 export type UserDocument = HydratedDocument<User>;
 
 @Schema()
@@ -35,6 +36,9 @@ export class User {
 
   @Prop()
   moneyTransactions: MoneyTransaction[] = [];
+
+  @Prop()
+  notes: Note[] = [];
 
   @Prop()
   moneyTransactionCategories: MoneyTransactionCategory[];

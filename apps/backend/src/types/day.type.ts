@@ -1,10 +1,7 @@
-import { MoneyTransactionCategory } from '../mongoose-schemas/money-transaction-category.mongoose-schema';
-import { UserSettings } from '../mongoose-schemas/user-settings.mongoose-schema';
-import { Types } from 'mongoose';
-import { IsDate, IsDateString } from 'class-validator';
+import { IsDateString } from 'class-validator';
 import { FormItem } from '../mongoose-schemas/form-item.mongoose-schema';
-import { Form } from '../mongoose-schemas/form.mongoose-schema';
 import { MoneyTransaction } from '../mongoose-schemas/money-transaction.mongoose-schema';
+import { Note as INote } from 'shared-types/shared.type';
 
 export class GetDayDataByDateParamsDto {
   @IsDateString()
@@ -26,4 +23,5 @@ export interface FormState extends UserFormMeta {
 export interface DayViewDateData {
   forms: any;
   moneyTransactions: MoneyTransaction[];
+  notes: INote[];
 }

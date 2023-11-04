@@ -101,6 +101,7 @@ export class UsersService {
           forms: [],
         },
         finance: { currency: settings.finance.currency },
+        notes: { rtlDefaultDirection: settings.notes.rtlDefaultDirection },
       },
       formDefinitions: forms.map((f) => ({
         name: f.name,

@@ -56,4 +56,10 @@ export default {
     SUCCESSFULLY_UPDATED_USER_SETTINGS: 'Successfully updated user settings',
     SUCCESSFULLY_GOT_USER_DATA: 'Successfully got user data',
   },
+  notes: {
+    SUCCESSFULLY_CREATED_NOTE: 'Successfully created note',
+    SUCCESSFULLY_UPDATED_NOTE: 'Successfully updated note',
+    SUCCESSFULLY_DELETED_NOTE: 'Successfully deleted note',
+    NOTE_NOT_FOUND: 'Error: Note not found',
+  },
 };

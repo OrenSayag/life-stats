@@ -10,6 +10,7 @@ import { DayModule } from '../day/day.module';
 import { AnalyticsModule } from '../analytics/analytics.module';
 import { CalendarModule } from '../calendar/calendar.module';
 import { ReportsModule } from '../reports/reports.module';
+import { NoteModule } from '../note/note.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ReportsModule } from '../reports/reports.module';
     AnalyticsModule,
     CalendarModule,
     ReportsModule,
+    NoteModule,
   ],
   controllers: [AppController],
   providers: [AppService],
