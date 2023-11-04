@@ -11,10 +11,6 @@ import { DateRange } from "shared-types/shared.type";
 import strings from "../assets/strings";
 
 class UtilitiesService {
-  public static classNames = (...strings) => {
-    return [...strings].filter(Boolean).join(" ");
-  };
-
   public static formatDate = (date: string) => {
     return moment(date).format("DD/MM/YY");
   };
@@ -339,5 +335,28 @@ class UtilitiesService {
     };
   };
 }
+
+export const classNames = (...strings) => {
+  return [...strings].filter(Boolean).join(" ");
+};
+
+export const isoToTimeString = (iso: string, format: "hh:mm" = "hh:mm") => {
+  const date = new Date(iso);
+
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  let timeString;
+
+  // Format hours and minutes as a string in the "HH:mm" format
+  switch (format) {
+    case "hh:mm":
+      timeString = `${hours.toString().padStart(2, "0")}:${minutes
+        .toString()
+        .padStart(2, "0")}`;
+  }
+
+  return timeString;
+};
 
 export default UtilitiesService;

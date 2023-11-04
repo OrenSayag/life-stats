@@ -58,7 +58,7 @@ const Select: React.FC<SelectParams> = ({
   //   <Box sx={{ minWidth: 120 }}>
   //     <FormControl fullWidth>
   //       <InputLabel
-  //         className={UtilitiesService.classNames(className)}
+  //         className={classNames(className)}
   //         id={labelId}
   //       >
   //         {label}
@@ -72,7 +72,7 @@ const Select: React.FC<SelectParams> = ({
   //             },
   //           },
   //         }}
-  //         className={UtilitiesService.classNames(className)}
+  //         className={classNames(className)}
   //         labelId={labelId}
   //         id="demo-simple-select"
   //         value={

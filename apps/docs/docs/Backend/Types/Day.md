@@ -40,5 +40,6 @@ export interface FormLogs {
 export interface DayViewDateData {
 	forms: FormLogs;
 	moneyTransactions: MoneyTransaction[];
+	notes: Note[];
 }
 ```

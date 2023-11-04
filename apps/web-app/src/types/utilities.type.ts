@@ -2,8 +2,8 @@ import { DateRange } from "shared-types/shared.type";
 import { DateRangeSelection } from "./app.type";
 
 export interface Dimensions {
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
 }
 export interface UseDateRangeSelectionReturn {
   dateRange: DateRange;

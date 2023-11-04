@@ -3,7 +3,7 @@ import { CalendarDate } from "shared-types/shared.type";
 import { CalendarWeekData } from "../../types/calendar.type";
 import CalendarService from "../../services/calendar.service";
 import { useMemo } from "react";
-import UtilitiesService from "../../services/utilities.service";
+import { classNames } from "../../services/utilities.service";
 import moment from "moment";
 
 const CalendarDayBlock: React.FC<{ item?: CalendarDate }> = ({ item }) => {
@@ -21,7 +21,7 @@ const CalendarDayBlock: React.FC<{ item?: CalendarDate }> = ({ item }) => {
   );
   return (
     <div
-      className={UtilitiesService.classNames(
+      className={classNames(
         "flex items-center justify-center bg-opacity-40 h-24 border-[1px] border-gray-400 border-opacity-10 select-none transition duration-500",
         !isToday && !isDateFuture
           ? item?.isPerfectDay
@@ -33,7 +33,7 @@ const CalendarDayBlock: React.FC<{ item?: CalendarDate }> = ({ item }) => {
     >
       {isDateFuture}
       <div
-        className={UtilitiesService.classNames(
+        className={classNames(
           isToday &&
             "bg-green-800 rounded-full h-8 w-8 flex items-center justify-center"
         )}

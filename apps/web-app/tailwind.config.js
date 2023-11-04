@@ -20,6 +20,10 @@ module.exports = {
         secondary: "#282828",
         success: "#309700",
         error: "#D32F2F",
+        dark: {
+          200: "#18191A",
+          300: "#D9D9D9",
+        },
       },
     },
   },

@@ -1,6 +1,6 @@
 import React from "react";
 import { SubmitButtonParams } from "../../types/component-params/shared.type";
-import SubmitIcon from "../../../public/icons/Submit.svg";
+import SubmitIcon from "../../assets/icons/Submit.svg";
 import { Dimensions } from "../../types/utilities.type";
 
 const DEFAULT_DIMENSIONS: Dimensions = {

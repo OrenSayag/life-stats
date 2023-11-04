@@ -38,6 +38,9 @@ const strings = {
     REVENUE_TITLE: "Revenue",
     NO_DATA_FOR_FILTERS: "No Data for Selected Filters",
   },
+  notes: {
+    LIST_TITLE: "Notes",
+  },
   shared: {
     FILTERS: {
       DATE_RANGE_OPTIONS: {

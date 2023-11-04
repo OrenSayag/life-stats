@@ -12,18 +12,10 @@ import {
 import strings from "../../assets/strings";
 import DateRangeSelector from "../../components/molecules/DateRangeSelector";
 import { DateRangeSelection } from "../../types/app.type";
-import UtilitiesService from "../../services/utilities.service";
+import UtilitiesService, { classNames } from "../../services/utilities.service";
 import MoneyTransactionService from "../../services/money-transaction.service";
 import PieChart from "../../components/organisms/PieChart";
-
-const VIEW_MODES = {
-  GRAPH: {
-    label: "Graph",
-  },
-  HISTORY: {
-    label: "History",
-  },
-};
+import { ViewMode, ViewModes } from "../day";
 
 const RADIAN = Math.PI / 180;
 
@@ -78,7 +70,7 @@ const HistoryList: React.FC<{
               <label className={"text-2xl"}>{t.label}</label>
               <h4 className={"text-3xl"}>{getCategoryName(t.category)}</h4>
               <h4
-                className={UtilitiesService.classNames(
+                className={classNames(
                   t.isRevenue ? "text-success" : "text-error",
                   "text-4xl"
                 )}
@@ -130,13 +122,11 @@ const FinanceView: React.FC<UserData> = ({
   moneyTransactionCategories,
   settings,
 }) => {
-  const [viewMode, setViewMode] = useState<string>(VIEW_MODES.GRAPH.label);
+  const [viewMode, setViewMode] = useState<ViewMode>(ViewModes.GRAPH);
 
   const toggleViewMode = () =>
     setViewMode(
-      viewMode === VIEW_MODES.GRAPH.label
-        ? VIEW_MODES.HISTORY.label
-        : VIEW_MODES.GRAPH.label
+      viewMode === ViewModes.GRAPH ? ViewModes.HISTORY : ViewModes.GRAPH
     );
 
   const {
@@ -302,14 +292,13 @@ const FinanceView: React.FC<UserData> = ({
           />
         </div>
         <ViewModeToggle
-          label1={VIEW_MODES.GRAPH.label}
-          label2={VIEW_MODES.HISTORY.label}
-          highlighted={viewMode}
+          mode={viewMode}
+          modes={[ViewModes.HISTORY, ViewModes.GRAPH]}
           onChange={toggleViewMode}
         />
       </div>
       <Divider />
-      {viewMode === VIEW_MODES.GRAPH.label && moneyTransactionsByCategory && (
+      {viewMode === ViewModes.GRAPH && moneyTransactionsByCategory && (
         <div className={"grid grid-cols-2 my-8"}>
           <div className={"flex flex-col items-center"}>
             <h3 className={"underline text-3xl"}>
@@ -333,7 +322,7 @@ const FinanceView: React.FC<UserData> = ({
           </div>
         </div>
       )}
-      {viewMode === VIEW_MODES.HISTORY.label && moneyTransactionsByDate && (
+      {viewMode === ViewModes.HISTORY && moneyTransactionsByDate && (
         <HistoryList
           moneyTransactionCategories={moneyTransactionCategories}
           data={moneyTransactionsByDate}

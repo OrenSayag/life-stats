@@ -1,6 +1,6 @@
 import React from "react";
 import { PreviousNextButtonParams } from "../../types/component-params/shared.type";
-import AddIcon from "../../../public/icons/Add.svg";
+import AddIcon from "../../assets/icons/Add.svg";
 
 const DEFAULT_DIMENSION = 30;
 const NextButton: React.FC<PreviousNextButtonParams> = ({

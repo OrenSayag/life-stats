@@ -7,7 +7,6 @@ const PageTitle: React.FC = () => {
   return (
     <div className={"flex flex-col items-center"}>
       <label className={"text-2xl my-4 text-success"}>{pageName}</label>
-      <Divider />
     </div>
   );
 };

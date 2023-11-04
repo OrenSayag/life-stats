@@ -1,5 +1,6 @@
 import { MoneyTransaction } from "shared-types/shared.type";
 import { Dimensions } from "../../types/utilities.type";
+import { ViewModes, ViewMode } from "../../pages/day";
 
 export interface PreviousNextButtonParams {
   onClick: (e?: React.MouseEvent<HTMLElement>) => void;
@@ -11,10 +12,10 @@ export interface PreviousNextButtonParams {
 }
 
 export interface ViewModeToggleParams {
-  label1: string;
-  label2: string;
-  highlighted: string;
-  onChange: () => void;
+  mode: ViewMode;
+  onChange: (mode: ViewMode) => void;
+  modes: [ViewMode, ViewMode];
+  className?: string;
 }
 
 export interface MoneyTransactionLogItemParams {

@@ -83,6 +83,15 @@ export interface MoneyTransactionCategory {
 export class UserSettings {
 	reports: ReportsUserSettings;
 	finance: FinanceUserSettings;
+	notes: NotesUserSettings;
+}
+```
+
+### NotesUserSettings
+
+```ts
+export interface NotesUserSettings { 
+	rtlDefaultDirection: boolean;
 }
 ```
 
@@ -114,6 +123,19 @@ export interface MoneyTransaction {
 	label: string;
 	amount: number;
 	objectId: string;
+}
+```
+
+### Note
+
+```ts
+export interface Note {
+	objectId: string;
+	date: string;
+	creationTime: string;
+	title: string;
+	content?: string;
+	rtl: boolean;
 }
 ```
 

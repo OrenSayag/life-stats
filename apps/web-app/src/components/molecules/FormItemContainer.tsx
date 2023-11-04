@@ -2,8 +2,8 @@ import React from "react";
 import { FormItemContainerParams } from "../../types/component-params/form.type";
 import BooleanFormItemControl from "../../components/atoms/BooleanFormItemControl";
 import NumericFormItemControl from "../../components/atoms/NumericFormItemControl";
-import UtilitiesService from "../../services/utilities.service";
 import { NumericTarget } from "shared-types/shared.type";
+import { classNames } from "../../services/utilities.service";
 
 const FormItemContainer: React.FC<FormItemContainerParams> = ({
   formItem,
@@ -38,7 +38,7 @@ const FormItemContainer: React.FC<FormItemContainerParams> = ({
   };
   return (
     <div
-      className={UtilitiesService.classNames(
+      className={classNames(
         "flex items-center justify-between p-2 transition-all duration-200",
         determineMarker()
       )}

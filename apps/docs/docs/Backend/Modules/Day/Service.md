@@ -2,7 +2,7 @@
 
 ### getDayDataByDate
 
-Gets forms and money transactions for the day.
+Gets forms, money transactions and notes for the day.
 
 #### Params
 

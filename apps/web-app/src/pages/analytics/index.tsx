@@ -13,15 +13,7 @@ import Select from "../../components/atoms/Select";
 import strings from "../../assets/strings";
 import { DateRangeSelection } from "../../types/app.type";
 import DateRangeSelector from "../../components/molecules/DateRangeSelector";
-
-const VIEW_MODES = {
-  GRAPH: {
-    label: "Graph",
-  },
-  HISTORY: {
-    label: "History",
-  },
-};
+import { ViewMode, ViewModes } from "../day";
 
 const Filters: React.FC<{
   changeSelectedForm: (formDefinitionId: string) => void;
@@ -174,7 +166,7 @@ const AnalyticsView: React.FC<UserData> = ({
   moneyTransactionCategories,
   settings,
 }) => {
-  const [viewMode, setViewMode] = useState<string>(VIEW_MODES.GRAPH.label);
+  const [viewMode, setViewMode] = useState<ViewMode>(ViewModes.GRAPH);
 
   const [selectedForm, setSelectedForm] = useState<string>(
     formDefinitions[0].objectId
@@ -264,9 +256,7 @@ const AnalyticsView: React.FC<UserData> = ({
 
   const toggleViewMode = () =>
     setViewMode(
-      viewMode === VIEW_MODES.GRAPH.label
-        ? VIEW_MODES.HISTORY.label
-        : VIEW_MODES.GRAPH.label
+      viewMode === ViewModes.GRAPH ? ViewModes.HISTORY : ViewModes.GRAPH
     );
 
   const lineChartData = useMemo(() => {
@@ -302,9 +292,8 @@ const AnalyticsView: React.FC<UserData> = ({
       <div className={"flex"}>
         <div className={"w-5/6"}></div>
         <ViewModeToggle
-          label1={VIEW_MODES.GRAPH.label}
-          label2={VIEW_MODES.HISTORY.label}
-          highlighted={viewMode}
+          modes={[ViewModes.GRAPH, ViewModes.HISTORY]}
+          mode={viewMode}
           onChange={toggleViewMode}
         />
       </div>
@@ -313,10 +302,10 @@ const AnalyticsView: React.FC<UserData> = ({
         itemLabel={selectedItemLabel}
         onChange={switchSelectedItemId}
       />
-      {viewMode === VIEW_MODES.GRAPH.label && data && (
+      {viewMode === ViewModes.GRAPH && data && (
         <LineChart data={lineChartData} className={"mt-24"} />
       )}
-      {viewMode === VIEW_MODES.HISTORY.label && data && (
+      {viewMode === ViewModes.HISTORY && data && (
         <HistoryList data={selectedItemData} className={"mt-24"} />
       )}
     </div>

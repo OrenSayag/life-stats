@@ -8,7 +8,7 @@ import NextButton from "../../components/atoms/NextButton";
 import moment from "moment";
 import { useReport } from "../../services/reports.service";
 import Report from "../../components/organisms/Report";
-import UtilitiesService from "../../services/utilities.service";
+import UtilitiesService, { classNames } from "../../services/utilities.service";
 
 const Filters: React.FC<{
   selectedMonth: string;
@@ -49,7 +49,7 @@ const ReportsView: React.FC<UserData> = ({
     <div className={"flex flex-col items-center"}>
       <Filters selectedMonth={monthLabel} setDateRange={onSwitchMonth} />
       <Divider />
-      <div className={UtilitiesService.classNames("p-4 md:w-1/2")}>
+      <div className={classNames("p-4 md:w-1/2")}>
         {data && <Report report={data} />}
       </div>
     </div>

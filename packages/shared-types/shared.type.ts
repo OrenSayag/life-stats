@@ -13,12 +13,12 @@ export interface FormItem {
   objectId: string;
   value: number | boolean;
   // TODO update docs
-
   delete?: boolean; // used for mutating the form definition
 }
 export interface UserData {
   formDefinitions: Form[];
   moneyTransactionCategories: MoneyTransactionCategory[];
+
   settings: UserSettings;
   profilePicUrl: string;
   name: string;
@@ -68,7 +68,13 @@ export interface GetUserDataResponseBody extends AppAPIResponseBodyBase {
 export interface UserSettings {
   reports: ReportsUserSettings;
   finance: FinanceUserSettings;
+  notes: NotesUserSettings;
 }
+
+export interface NotesUserSettings {
+  rtlDefaultDirection: boolean;
+}
+
 export interface ReportsUserSettings {
   mailTo: string[];
   interval: number;
@@ -91,6 +97,15 @@ export interface MoneyTransaction {
   label: string;
   amount: number;
   objectId?: string;
+}
+
+export interface Note {
+  objectId: string;
+  date: string;
+  creationTime: string;
+  title: string;
+  content?: string;
+  rtl: boolean;
 }
 
 export interface MoneyTransactionsByDate {

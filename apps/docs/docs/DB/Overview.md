@@ -12,6 +12,15 @@ The DB software is MongoDB.
 | interval | `number`     |
 | forms    | `ObjectId[]` |
 
+### UserNotesSettings
+
+#### Schema
+
+| name                | type      | default value | usage | is optional |
+| ------------------- | --------- | ------------- | ----- | ----------- |
+| rtlDefaultDirection | `boolean` | `false`       |
+| passcode            | `string`  |               |       | Y           |
+
 #### Interval Mapping
 
 | index | meaning |
@@ -43,6 +52,7 @@ The DB software is MongoDB.
 | ------- | --------------------- | ------------- | ----- | ----------- |
 | reports | `UserReportsSettings` |
 | finance | `UserFinanceSettings` |
+| notes   | `UserNotesSettings`   |
 
 ### User
 
@@ -59,6 +69,7 @@ The DB software is MongoDB.
 | forms                      | `Form[]`                     |               |       |             |
 | formHistory                | `FormLog[]`                  |               |       |             |
 | moneyTransactions          | `MoneyTransaction[]`         |               |       |             |
+| notes                      | `Note[]`                     |               |       |             |
 | moneyTransactionCategories | `MoneyTransactionCategory[]` |               |       |             |
 | settings                   | `UserSettings`               |               |       |             |
 | defaultForm                | `ObjectId`                   |               |       |             |
@@ -115,6 +126,19 @@ Form.
 | label     | `string`   |                    |                                                |             |
 | amount    | `number`   |                    |                                                |             |
 | objectId  | `ObjectId` |
+
+### Note
+
+#### Schema
+
+| name      | type       | default value | usage | is optional |
+| --------- | ---------- | ------------- | ----- | ----------- |
+| objectId  | `ObjectId` |
+| updatedAt | `string`   | Automatic     |
+| createdAt | `string`   | Automatic     |       |             |
+| title     | `string`   |
+| content   | `string`   |               |       | Y           |
+| rtl       | `boolean`  |               |       |             |
 
 ### MoneyTransactionCategory
 

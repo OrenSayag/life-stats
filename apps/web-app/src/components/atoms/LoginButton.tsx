@@ -3,7 +3,8 @@ import React from "react";
 import { SocialProviderLoginType } from "../../types/auth.type";
 import { useRouter } from "next/router";
 import AuthService from "../../services/auth.service";
-import config from "../../config";
+
+import Google from "../../assets/icons/Google.svg";
 
 export const LoginButton: React.FC<{
   provider: SocialProviderLoginType;
@@ -17,12 +18,7 @@ export const LoginButton: React.FC<{
   if (provider === "google") {
     return (
       <button onClick={onClick}>
-        <Image
-          src={`${config.BASE_PATH}/icons/Google.svg`}
-          alt={"google-logo"}
-          width={80}
-          height={80}
-        />
+        <Google width={80} height={80} />
       </button>
     );
   }

@@ -12,7 +12,8 @@ const NavBarPageLink: React.FC<NavBarPageLinkParams> = ({ pageName }) => {
         className={[
           isHighlighted ? "text-success" : "",
           "text-3xl",
-          "cursor-pointer",
+          "cursor-pointer shadow-lg",
+          "hover:text-success",
         ]
           .filter(Boolean)
           .join(" ")}

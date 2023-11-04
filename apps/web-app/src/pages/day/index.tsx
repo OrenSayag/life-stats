@@ -1,30 +1,45 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import AuthService from "../../services/auth.service";
 import Layout from "../../components/templates/Layout";
 import ViewModeToggle from "../../components/molecules/ViewModeToggle";
 import DayNavigator from "../../components/molecules/DayNavigator";
-import UtilitiesService from "../../services/utilities.service";
+import UtilitiesService, { classNames } from "../../services/utilities.service";
 import DayService from "../../services/day.service";
 import Form from "../../components/organisms/Form";
 import MoneyTransactionDayLog from "../../components/organisms/MoneyTransactionDayLog";
 import MoneyTransactionService from "../../services/money-transaction.service";
 import { Form as FormDefinition, UserData } from "shared-types/shared.type";
+import Button from "../../components/ui/button";
 
-const VIEW_MODES = {
+import JournalIcon from "../../assets/icons/day/journal.svg";
+import Notes from "../../components/day/notes";
+
+export const ViewModes = {
   FORM: {
     label: "Form",
   },
   FINANCE: {
     label: "Finance",
   },
-};
+  NOTES: {
+    label: "Notes",
+  },
+  GRAPH: {
+    label: "Graph",
+  },
+  HISTORY: {
+    label: "History",
+  },
+} as const;
+
+export type ViewMode = typeof ViewModes[keyof typeof ViewModes];
 
 const DayView: React.FC<UserData> = ({
   formDefinitions,
   moneyTransactionCategories,
   settings,
 }) => {
-  const [viewMode, setViewMode] = useState<string>(VIEW_MODES.FORM.label);
+  const [viewMode, setViewMode] = useState<ViewMode>(ViewModes.FORM);
   const [date, setDate] = useState<string>(
     UtilitiesService.getDateString("israel")
   );
@@ -46,22 +61,47 @@ const DayView: React.FC<UserData> = ({
     data
   );
 
-  const toggleViewMode = () =>
-    setViewMode(
-      viewMode === VIEW_MODES.FORM.label
-        ? VIEW_MODES.FINANCE.label
-        : VIEW_MODES.FORM.label
-    );
+  const toggleViewMode = (mode: ViewMode) => {
+    setViewMode(mode);
+  };
+
+  const [lastViewMode, setLastViewMode] = useState<ViewMode>();
+
+  const toggleNotesViewMode = () => {
+    const isNotesViewMode = viewMode === ViewModes.NOTES;
+    if (!isNotesViewMode) {
+      setLastViewMode(viewMode);
+      setViewMode(ViewModes.NOTES);
+    } else {
+      setViewMode(lastViewMode || ViewModes.FORM);
+    }
+  };
 
   return (
     <div>
-      <div className={"flex"}>
-        <div className={"w-5/6"}></div>
+      <div
+        className={
+          "flex h-12 w-full mb-12 lg:mb-12 bg-dark-200 bg-opacity-80 lg:px-4 justify-between"
+        }
+      >
+        <Button className={"ml-4"} onClick={toggleNotesViewMode}>
+          <JournalIcon
+            fill={"#fff"}
+            className={classNames(
+              "hover:fill-success",
+              viewMode === ViewModes.NOTES && "fill-success"
+            )}
+          />
+        </Button>
         <ViewModeToggle
-          label1={VIEW_MODES.FORM.label}
-          label2={VIEW_MODES.FINANCE.label}
-          highlighted={viewMode}
+          mode={viewMode}
+          modes={[ViewModes.FORM, ViewModes.FINANCE]}
           onChange={toggleViewMode}
+          className={
+            viewMode !== ViewModes.FINANCE &&
+            viewMode !== ViewModes.FORM &&
+            "hidden"
+          }
         />
       </div>
       <div className={"flex justify-center"}>
@@ -75,7 +115,7 @@ const DayView: React.FC<UserData> = ({
         <div
           className={[
             "w-full flex justify-center",
-            viewMode !== VIEW_MODES.FORM.label && "hidden",
+            viewMode !== ViewModes.FORM && "hidden",
           ]
             .filter(Boolean)
             .join(" ")}
@@ -85,7 +125,7 @@ const DayView: React.FC<UserData> = ({
         <div
           className={[
             "w-full flex justify-center",
-            viewMode !== VIEW_MODES.FINANCE.label && "hidden",
+            viewMode !== ViewModes.FINANCE && "hidden",
           ]
             .filter(Boolean)
             .join(" ")}
@@ -105,6 +145,14 @@ const DayView: React.FC<UserData> = ({
               date={formLog.date}
             />
           )}
+        </div>
+        <div
+          className={classNames(
+            "w-full flex justify-center",
+            viewMode !== ViewModes.NOTES && "hidden"
+          )}
+        >
+          <Notes date={date} notes={data?.notes || []} />
         </div>
       </div>
     </div>

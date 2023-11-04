@@ -7,7 +7,7 @@ import UtilitiesService from "../../services/utilities.service";
 import { Dimensions } from "../../types/utilities.type";
 import Divider from "../../components/atoms/Divider";
 
-const APP_LOGO_DIMENSIONS: Dimensions = { width: 120, height: 120 };
+const APP_LOGO_DIMENSIONS: Dimensions = { width: 100, height: 10 };
 const HeaderBar: React.FC<HeaderBarParams> = ({
   profilePicUrl,
   toggleDisplayMobileNavbar,
@@ -17,7 +17,11 @@ const HeaderBar: React.FC<HeaderBarParams> = ({
 
   return (
     <>
-      <div className={"flex justify-between items-center p-6"}>
+      <div
+        className={
+          "flex justify-between items-center p-6 bg-dark-200 bg-opacity-40 shadow-3xl"
+        }
+      >
         <AppLogo dimensions={APP_LOGO_DIMENSIONS} />
         <div className={"flex gap-6 items-center"}>
           {isMobileView && (
@@ -29,7 +33,6 @@ const HeaderBar: React.FC<HeaderBarParams> = ({
           <UserAvatar profilePicUrl={profilePicUrl} />
         </div>
       </div>
-      <Divider />
     </>
   );
 };

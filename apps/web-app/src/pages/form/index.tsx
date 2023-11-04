@@ -7,7 +7,7 @@ import { Form as FormType, UserData } from "shared-types/shared.type";
 import { FormModificationModeOptions } from "../../types/component-params/form.type";
 import Form from "../../components/organisms/Form";
 import FormService from "../../services/form.service";
-import PreviousIcon from "../../../public/icons/Previous.svg";
+import PreviousIcon from "../../assets/icons/Previous.svg";
 import TrashButton from "../../components/atoms/TrashButton";
 
 const FormView: React.FC<UserData> = ({

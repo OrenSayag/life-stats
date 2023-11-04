@@ -1,7 +1,7 @@
 import React from "react";
-import BooleanTrue from "@/../public/icons/BooleanTrue.svg";
+import BooleanTrue from "../../assets/icons/BooleanTrue.svg";
 
-import BooleanFalse from "@/../public/icons/BooleanFalse.svg";
+import BooleanFalse from "../../assets/icons/BooleanFalse.svg";
 
 const BooleanIcon: React.FC<{ value: boolean; width?: number }> = ({
   value,

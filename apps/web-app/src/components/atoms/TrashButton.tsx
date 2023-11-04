@@ -1,5 +1,5 @@
 import React from "react";
-import TrashIcon from "../../../public/icons/Trash.svg";
+import TrashIcon from "../../assets/icons/Trash.svg";
 import { Dimensions } from "../../types/utilities.type";
 
 const DEFAULT_DIMENSIONS = 30;

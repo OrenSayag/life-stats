@@ -19,7 +19,11 @@ const Layout: React.FC<LayoutParams> = ({ profilePicUrl, view }) => {
       />
       {isMobileView && displayMobileNavbar && <NavBar />}
       {isMobileView && (
-        <div className={displayMobileNavbar ? "hidden" : ""}>
+        <div
+          className={
+            displayMobileNavbar ? "hidden" : "bg-dark-200 bg-opacity-50"
+          }
+        >
           <PageTitle />
         </div>
       )}
@@ -29,7 +33,11 @@ const Layout: React.FC<LayoutParams> = ({ profilePicUrl, view }) => {
       {!isMobileView && (
         <div className={"flex grow"}>
           <div className={"w-5/6"}>{view}</div>
-          <div className={"w-1/6 grow  border-l-[.2px] border-white"}>
+          <div
+            className={
+              "w-1/6 grow bg-dark-200 bg-opacity-60 shadow-2xl border-white"
+            }
+          >
             <NavBar />
           </div>
         </div>

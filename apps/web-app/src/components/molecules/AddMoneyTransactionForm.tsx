@@ -1,7 +1,7 @@
 import React, { ChangeEventHandler, useState } from "react";
 import { AddMoneyTransactionFormParams } from "../../types/component-params/day.type";
-import SubtractIcon from "../../../public/icons/Subtract.svg";
-import AddIcon from "../../../public/icons/Add.svg";
+import SubtractIcon from "../../assets/icons/Subtract.svg";
+import AddIcon from "../../assets/icons/Add.svg";
 import { SelectChangeEvent, TextField } from "@mui/material";
 import SubmitButton from "../../components/atoms/SubmitButton";
 import ObjectID from "bson-objectid";

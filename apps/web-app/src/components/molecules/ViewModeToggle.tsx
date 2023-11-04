@@ -1,17 +1,21 @@
 import React from "react";
 import { ViewModeToggleParams } from "../../types/component-params/shared.type";
 import Switch from "@mui/material/Switch";
+import { classNames } from "../../services/utilities.service";
 
 const ViewModeToggle: React.FC<ViewModeToggleParams> = ({
-  label1,
-  label2,
   onChange,
-  highlighted,
+  modes,
+  mode,
+  className,
 }) => {
-  const Unit: React.FC<{ label: string }> = ({ label }) => {
+  const Unit: React.FC<{ label: string; className?: string }> = ({
+    label,
+    className,
+  }) => {
     return (
       <span
-        className={[label === highlighted ? "underline" : ""]
+        className={[label === mode.label ? "underline" : "", className]
           .filter(Boolean)
           .join(" ")}
       >
@@ -19,16 +23,30 @@ const ViewModeToggle: React.FC<ViewModeToggleParams> = ({
       </span>
     );
   };
+  const onToggleFormFinance = () => {
+    if (mode === modes[0]) {
+      onChange(modes[1]);
+    } else {
+      onChange(modes[0]);
+    }
+  };
   return (
-    <span className={"flex justify-between items-center p-6 text-2xl"}>
-      <Unit label={label1} />
-      <Switch
-        color={"default"}
-        checked={label1 !== highlighted}
-        onClick={onChange}
-      />
-      <Unit label={label2} />
-    </span>
+    <div
+      className={classNames(
+        "flex justify-between items-center p-6 text-2xl shadow-xl",
+        className
+      )}
+    >
+      <div>
+        <Unit className={"text-xl"} label={modes[0].label} />
+        <Switch
+          color={"default"}
+          checked={mode === modes[1]}
+          onClick={onToggleFormFinance}
+        />
+        <Unit className={"text-xl"} label={modes[1].label} />
+      </div>
+    </div>
   );
 };
 
