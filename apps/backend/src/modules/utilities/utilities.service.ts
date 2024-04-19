@@ -58,7 +58,7 @@ export class UtilitiesService {
     const dateTimestamp = new Date(date);
     const startTimestamp = new Date(dateStart);
     const endTimestamp = new Date(dateEnd);
-    return dateTimestamp >= startTimestamp && dateTimestamp <= endTimestamp;
+    return dateTimestamp >= startTimestamp && dateTimestamp < endTimestamp;
   }
 
   public static getDateBeforeAndAfter(dateString) {
