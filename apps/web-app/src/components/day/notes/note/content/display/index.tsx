@@ -3,7 +3,7 @@ import {
   classNames,
   isoToTimeString,
 } from "../../../../../../services/utilities.service";
-import { MDRenderer } from "react-markdown-rtl";
+import { MDRenderer } from "react-markdown-rtl/src";
 import { Note } from "shared-types/shared.type";
 
 interface Props extends ComponentPropsWithoutRef<"div"> {

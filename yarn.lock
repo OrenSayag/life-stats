@@ -10389,10 +10389,10 @@ react-loadable-ssr-addon-v5-slorber@^1.0.1:
   dependencies:
     "@babel/runtime" "^7.10.3"
 
-react-markdown-rtl@^1.0.12:
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/react-markdown-rtl/-/react-markdown-rtl-1.0.12.tgz#6811e061e10c8738b38205fa94da32d5af833f3e"
-  integrity sha512-hVgF9idwaSJQMYOzQg3cSZsuzQ34LuE4TGkb23IP3RAItmZ+5nWfT9PflYJXSxf7JZUD73uNBNsk1As2WhlEBQ==
+react-markdown-rtl@^1.1.13:
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/react-markdown-rtl/-/react-markdown-rtl-1.1.13.tgz#4f13e65ce6818ad2a36641a0179bb195e2ceae58"
+  integrity sha512-1MSF1g/DfbvWIg4Zkdr62LlkdDxJr63TNvtlbIVbt7cUljdowXLlqODC696u6XuIZbvxfyjTgtv5BOijAA0Nyw==
   dependencies:
     classnames "^2.3.2"
     react ">=18"
